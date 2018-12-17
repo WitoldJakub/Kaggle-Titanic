@@ -2,7 +2,6 @@
 
 # Importing the libraries
 import numpy as np
-# import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset
@@ -82,6 +81,7 @@ out_panda.to_csv('titanic5p.csv', index = False, header = True, sep = ',')
 
 #I tried but with no success to displey visual plot for 2 of vor DV
 # Visualising the Training set results 
+# import matplotlib.pyplot as plt
 #from matplotlib.colors import ListedColormap
 #X_set, y_set = X, y
 #X1, X2 = np.meshgrid(np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.001),
