@@ -1,4 +1,4 @@
-# Titanic Logistic Regression!
+# Titanic K-Nearest Neighbors!
 
 # Importing the libraries
 import numpy as np
@@ -43,12 +43,12 @@ X[:, 1:4] = sc_X.fit_transform(X[:, 1:4]) #for training set fit needed
 # in order to scale train and test sets on the same bases
 X_test[:, 1:4] = sc_X.transform(X_test[:, 1:4])
 
-# Fitting classifier to the Training set
-from sklearn.linear_model import LogisticRegression
-classifier = LogisticRegression()
+# Fitting KNN classifier to the Training set
+from sklearn.neighbors import KNeighborsClassifier
+# parameters for euclidean distance
+classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
 classifier.fit(X, y)
-
-
+ 
 # Predicting the Train to check bias
 y_pred_train = classifier.predict(X)
 
@@ -63,10 +63,8 @@ prec = cm[0,0] / ( cm[0,0] + cm[0,1] )
 rec =  cm[0,0] / ( cm[0,0] + cm[1,0] )
 # F1 score
 F1 = 2 * prec * rec / ( prec + rec)
-acc
-prec
-rec
-F1
+
+print('Accuracy: ', acc, '\n', 'Precision: ', prec,'\n','Recall: ', rec,'\n', 'F1 score: ', F1)
 
 # Predicting the Test set results
 y_pred =  classifier.predict(X_test)
@@ -77,24 +75,4 @@ exp_pred = np.concatenate([passengerIDs, y_predv], axis = 1)
 #np.savetxt('titanic5p.csv', exp_pred, fmt='%d', delimiter=',')
 
 out_panda = pd.DataFrame(exp_pred, columns=['PassengerId', 'Survived'])
-out_panda.to_csv('titanic5p.csv', index = False, header = True, sep = ',')
-
-#I tried but with no success to displey visual plot for 2 of vor DV
-# Visualising the Training set results 
-# import matplotlib.pyplot as plt
-#from matplotlib.colors import ListedColormap
-#X_set, y_set = X, y
-#X1, X2 = np.meshgrid(np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.001),
-#                     np.arange(start = X_set[:, 2].min() - 1, stop = X_set[:, 2].max() + 1, step = 0.001))
-#plt.contourf(X1, X2, classifier.predict(np.array([ X[:, 0], X1.ravel(), X2.ravel(), X[:, 3] ]).T).reshape(X1.shape),
-#             alpha = 0.75, cmap = ListedColormap(('red', 'green')))
-#plt.xlim(X1.min(), X1.max())
-#plt.ylim(X2.min(), X2.max())
-#for i, j in enumerate(np.unique(y_set)):
-#    plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
-#                c = ListedColormap(('white', 'black'))(i), label = j)
-#plt.title('Titanic Logistic Regression (Training set)')
-#plt.xlabel('Pclas')
-#plt.ylabel('Age')
-#plt.legend()
-#plt.show()
+out_panda.to_csv('titanic7knn.csv', index = False, header = True, sep = ',')
