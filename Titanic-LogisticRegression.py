@@ -31,20 +31,11 @@ X_test[:, [2]] = imputer.transform(X_test[:, [2]])
 
 # Encoding categorical data
 # only sex into dummies (passanger class as not changed values)
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import LabelEncoder
 # Dummies for training set
 labelencoder_X = LabelEncoder()
 X[:, 1] = labelencoder_X.fit_transform(X[:, 1])
 X_test[:, 1] = labelencoder_X.fit_transform(X_test[:, 1])
-onehotencoder = OneHotEncoder(categorical_features = [1])
-X = onehotencoder.fit_transform(X).toarray()
-X_test = onehotencoder.fit_transform(X_test).toarray()
-# Deleting redundant sex column '0' - avoiding Dummy Varible Trap
-X = X[:, 1:]
-X_test = X_test[:, 1:]
-# or 
-# X = np.delete(X, 0, 1)  
-# X_test = np.delete(X_test, 0, 1)
 
 # Feature Scaling
 from sklearn.preprocessing import StandardScaler
